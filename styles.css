@@ -1,0 +1,549 @@
+/* ==========================================================================
+   Villa Carlos Paz - Turismo
+   Enfoque Mobile First. Sin frameworks, sin JavaScript.
+   ========================================================================== */
+
+/* ---------- Variables y reset básico ---------- */
+:root {
+  --color-primary: #0d6e8f;
+  --color-primary-dark: #0a5670;
+  --color-accent: #f2994a;
+  --color-accent-dark: #d97f2f;
+  --color-text: #24313a;
+  --color-text-light: #52646d;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f4f8f9;
+  --color-border: #dfe7e9;
+  --max-content-width: 1200px;
+  --radius: 10px;
+  --gap: 1.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Verdana, Arial, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.55;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  color: var(--color-primary-dark);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ancho de lectura cómodo en pantallas grandes: diseño fluido con tope */
+.header-inner,
+.hero,
+.destinos,
+.actividades,
+.info-turistica,
+.footer-inner {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.section-lead {
+  color: var(--color-text-light);
+  margin-top: -0.5rem;
+  margin-bottom: 2rem;
+  max-width: 60ch;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  border: 2px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-dark);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  padding: 0.5rem 1.1rem;
+  font-size: 0.95rem;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Encabezado y navegación - Flexbox
+   Mobile first: nombre arriba, menú debajo, en columna.
+   ========================================================================== */
+
+.site-header {
+  background-color: var(--color-primary-dark);
+  border-bottom: 4px solid var(--color-accent);
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  height: 90px;
+  width: auto;
+}
+
+/* Menú hamburguesa - truco CSS puro con checkbox + label, sin JavaScript */
+
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.nav-toggle-label span {
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background-color: #ffffff;
+}
+
+.main-nav {
+  width: 100%;
+}
+
+.main-nav ul {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+}
+
+.nav-toggle:checked ~ .main-nav ul {
+  display: flex;
+}
+
+.main-nav li {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.main-nav a {
+  color: #eaf4f8;
+  display: block;
+  width: 100%;
+  padding: 0.85rem 0.25rem;
+  font-weight: 500;
+}
+
+.main-nav a:hover {
+  color: var(--color-accent);
+}
+
+/* ==========================================================================
+   Sección principal (Hero) - Flexbox
+   Mobile first: columna, texto y luego imagen.
+   ========================================================================== */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  align-items: center;
+}
+
+.hero-content {
+  flex: 1 1 100%;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 2.1rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  color: var(--color-text-light);
+  margin-bottom: 1.5rem;
+}
+
+.hero-image {
+  flex: 1 1 100%;
+  width: 100%;
+}
+
+.hero-image img {
+  border-radius: var(--radius);
+  width: 100%;
+  object-fit: cover;
+  max-height: 420px;
+}
+
+/* ==========================================================================
+   Destinos destacados - CSS Grid
+   Mobile first: una columna.
+   ========================================================================== */
+
+.destinos {
+  background-color: var(--color-bg-alt);
+}
+
+.destinos h2,
+.actividades h2,
+.info-turistica h2 {
+  text-align: center;
+}
+
+.destinos .section-lead,
+.actividades .section-lead,
+.info-turistica .section-lead {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+
+.card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-body h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.card-body p {
+  color: var(--color-text-light);
+  flex-grow: 1;
+  margin-bottom: 1.25rem;
+}
+
+/* ==========================================================================
+   Actividades - Flexbox
+   Mobile first: apiladas en columna, luego en fila con wrap.
+   ========================================================================== */
+
+.activity-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  justify-content: center;
+}
+
+.activity {
+  flex: 1 1 240px;
+  max-width: 280px;
+  background-color: var(--color-bg-alt);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.activity-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.activity h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.activity p {
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+/* ==========================================================================
+   Información turística - CSS Grid
+   Mobile first: bloques apilados.
+   ========================================================================== */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+
+.info-block {
+  background-color: var(--color-bg-alt);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.info-block h3 {
+  margin-top: 0;
+}
+
+.info-block p {
+  color: var(--color-text-light);
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Pie de página - Flexbox
+   Mobile first: elementos en columna, centrados.
+   ========================================================================== */
+
+.site-footer {
+  background-color: var(--color-primary-dark);
+  color: #eaf4f8;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.footer-brand {
+  margin: 0;
+  font-weight: 700;
+}
+
+.footer-year {
+  margin: 0;
+  color: #b9d3dc;
+  font-size: 0.9rem;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.social-links a {
+  display: block;
+  line-height: 0;
+}
+
+.social-links img {
+  width: 32px;
+  height: 32px;
+}
+
+.social-links a:hover {
+  opacity: 0.8;
+}
+
+.footer-contact:hover {
+  color: var(--color-accent);
+}
+
+.footer-contact {
+  color: #eaf4f8;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Botón flotante "Volver arriba"
+   ========================================================================== */
+
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  font-size: 1.4rem;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 100;
+}
+
+.back-to-top:hover {
+  background-color: var(--color-accent-dark);
+}
+
+/* ==========================================================================
+   Media Queries - Punto 1: pantallas intermedias (tablets, ~600px+)
+   ========================================================================== */
+
+@media (min-width: 600px) {
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .header-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-top {
+    width: auto;
+  }
+
+  .nav-toggle-label {
+    display: none;
+  }
+
+  .main-nav {
+    width: auto;
+  }
+
+  .main-nav ul,
+  .nav-toggle:checked ~ .main-nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    width: auto;
+  }
+
+  .main-nav li {
+    width: auto;
+    border-top: none;
+  }
+
+  .main-nav a {
+    width: auto;
+    padding: 0.5rem 0.25rem;
+  }
+
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* ==========================================================================
+   Media Queries - Punto 2: pantallas amplias (notebooks/escritorio, ~960px+)
+   ========================================================================== */
+
+@media (min-width: 960px) {
+
+  .hero {
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+  }
+
+  .hero-content {
+    flex: 1 1 50%;
+    text-align: left;
+  }
+
+  .hero-image {
+    flex: 1 1 50%;
+  }
+
+  .hero-content h1 {
+    font-size: 2.75rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  section {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
